@@ -1,66 +1,19 @@
 import express, { request, response } from "express";
-import knex from "./database/connection";
+
+import CollectPointsController from "./controllers/collectPointsController";
+import ItemsController from "./controllers/itemsController";
 
 /** Router */
 const routes = express.Router();
 
-/** Listagem de todos os itens */
-routes.get("/items", async (request, response) => {
-  // SELECT * FROM 'ITEMS'
-  const items = await knex("items").select("*");
+const collectPointsController = new CollectPointsController();
+const itemsController = new ItemsController();
 
-  /** Transformação dos dados */
-  const serializedItems = items.map((item) => {
-    return {
-      id: item.id,
-      title: item.title,
-      image_url: `http://localhost:3333/uploads/${item.image}`,
-    };
-  });
+routes.get("/items", itemsController.index);
+routes.get("/items/:id", itemsController.show);
 
-  return response.json(serializedItems);
-});
-
-/** Cadastro de ponto de coleta */
-routes.post("/collect_points", async (request, response) => {
-  const {
-    name,
-    email,
-    whatsapp,
-    latitude,
-    longitude,
-    city,
-    uf,
-    items,
-  } = request.body;
-
-  // Transações, impedem que uma query seja executada em sequência,
-  // caso ocorra erro com alguma outra query
-  const trx = await knex.transaction();
-
-  const insertedIds = await trx("collect_points").insert({
-    image: "image-fake",
-    name,
-    email,
-    whatsapp,
-    latitude,
-    longitude,
-    city,
-    uf,
-  });
-
-  const point_id = insertedIds[0];
-
-  const pointItems = items.map((item_id: Number) => {
-    return {
-      item_id,
-      point_id: insertedIds[0],
-    };
-  });
-
-  await trx("point_items").insert(pointItems);
-
-  return response.json({ sucess: true });
-});
+routes.get("/collectpoints", collectPointsController.index);
+routes.get("/collectpoints/:id", collectPointsController.show);
+routes.post("/collectpoints", collectPointsController.create);
 
 export default routes;
