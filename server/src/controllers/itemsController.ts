@@ -32,10 +32,14 @@ class ItemsController {
   async create(req: Request, res: Response) {
     const { title, image } = await req.body;
 
+    const trx = await knex.transaction();
+
     const item = { title, image };
 
-    const insertedId = await knex("items").insert(item);
+    const insertedId = await trx("items").insert(item);
     const id = insertedId[0];
+
+    await trx.commit();
 
     return res.json({
       id,
