@@ -145,6 +145,7 @@ class PointsController {
       return res.json(points);
     }
 
+    // seleção dos pontos
     const points = await knex("points")
       .join("point_items", "points.id", "=", "point_items.point_id")
       .whereIn("point_items.item_id", parsedItems)
@@ -154,34 +155,6 @@ class PointsController {
       .select("points.*");
 
     return res.json(points);
-
-    // const points = await knex("collect_points")
-    //   .join("point_items", "collect_points.id", "=", "point_items.point_id")
-    //   .where("point_items.item_id", parsedItems)
-    //   .where("city", String(city))
-    //   .where("uf", String(uf))
-    //   .distinct()
-    //   .select("*");
-    // console.log(points);
-    // return res.json(points);
-
-    // const points = await knex("collect_points").select("*");
-
-    // const serializedPoints = points.map((point) => {
-    //   return {
-    //     id: point.id,
-    //     linkImage: point.image,
-    //     Nome: point.name,
-    //     Email: point.email,
-    //     WhatsApp: point.whatsapp,
-    //     Latitude: point.name,
-    //     Longitude: point.longitude,
-    //     City: point.city,
-    //     UF: point.uf,
-    //   };
-    // });
-
-    // return res.json();
   }
 }
 
