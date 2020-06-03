@@ -28,6 +28,20 @@ class ItemsController {
     }
     return res.json(items);
   }
+
+  async create(req: Request, res: Response) {
+    const { title, image } = await req.body;
+
+    const item = { title, image };
+
+    const insertedId = await knex("items").insert(item);
+    const id = insertedId[0];
+
+    return res.json({
+      id,
+      ...item,
+    });
+  }
 }
 
 export default ItemsController;
