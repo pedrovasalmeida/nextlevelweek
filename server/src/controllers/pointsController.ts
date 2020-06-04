@@ -76,6 +76,12 @@ class PointsController {
       .split(",")
       .map((item) => Number(item.trim()));
 
+    if (!city && !uf && !items) {
+      const points = await knex("points").select("*");
+
+      return res.json(points);
+    }
+
     // apenas uf
     if (!city && !items) {
       const points = await knex("points")
