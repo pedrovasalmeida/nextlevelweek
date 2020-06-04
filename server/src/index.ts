@@ -2,12 +2,15 @@
 import express, { response } from "express";
 import routes from "./routes";
 import path from "path";
+import cors from "cors";
 
 /** Porta */
 const port: number = 3333;
 
 /** Instancia o servidor */
 const app = express();
+
+app.use(cors());
 
 /** Permite o uso de JSON pelo Express */
 app.use(express.json());
