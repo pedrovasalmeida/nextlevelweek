@@ -6,6 +6,8 @@ class PointsController {
   async create(req: Request, res: Response) {
     const city: string = await req.body.city;
     const uf: string = await req.body.uf;
+    const urlStaticImage: string =
+      "https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60";
 
     const {
       name,
@@ -17,7 +19,7 @@ class PointsController {
     } = await req.body;
 
     const point = {
-      image: "teste.svg",
+      image: urlStaticImage,
       name,
       email,
       whatsapp,
