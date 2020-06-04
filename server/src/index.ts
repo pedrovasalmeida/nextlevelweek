@@ -10,6 +10,7 @@ const port: number = 3333;
 /** Instancia o servidor */
 const app = express();
 
+/** Permite acesso externo à API */
 app.use(cors());
 
 /** Permite o uso de JSON pelo Express */
