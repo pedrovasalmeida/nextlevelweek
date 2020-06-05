@@ -1,6 +1,6 @@
 /** React */
 import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 /** APIs */
 import axios from "axios";
@@ -12,7 +12,7 @@ import logo from "../../assets/logo.svg";
 
 /** Outros */
 import { LeafletMouseEvent } from "leaflet";
-import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import { Map, TileLayer, Marker } from "react-leaflet";
 
 /** Estilização */
 import "./styles.css";
@@ -51,6 +51,8 @@ const CreatePoint = () => {
     -20.1079685,
     -43.0556705,
   ]);
+
+  const history = useHistory();
 
   /** controla a UF selecionada */
   function handleSelectUf(event: ChangeEvent<HTMLSelectElement>) {
@@ -113,6 +115,8 @@ const CreatePoint = () => {
     await api.post("points", finalData);
 
     alert("Ponto de coleta criado com sucesso!");
+
+    history.push("/");
   }
 
   /** captura a posição inicial do usuário */
