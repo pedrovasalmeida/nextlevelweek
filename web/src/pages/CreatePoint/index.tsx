@@ -1,5 +1,5 @@
 /** React */
-import React, { useState, useEffect, ChangeEvent } from "react";
+import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { Link } from "react-router-dom";
 
 /** APIs */
@@ -88,6 +88,33 @@ const CreatePoint = () => {
     }
   }
 
+  /** controla o envio de dados para a API */
+  async function handleSubmit(event: FormEvent) {
+    // evita o comportamento padrão do submit (redirecionamento)
+    event.preventDefault();
+
+    const { name, email, whatsapp } = formData;
+    const uf = selectedUf;
+    const city = selectedCity;
+    const [latitude, longitude] = selectedPos;
+    const items = selectedItems;
+
+    const finalData = {
+      name,
+      email,
+      whatsapp,
+      uf,
+      city,
+      latitude,
+      longitude,
+      items,
+    };
+
+    await api.post("points", finalData);
+
+    alert("Ponto de coleta criado com sucesso!");
+  }
+
   /** captura a posição inicial do usuário */
   // useEffect(() => {
   //   navigator.geolocation.getCurrentPosition((position) => {
@@ -138,7 +165,7 @@ const CreatePoint = () => {
         </Link>
       </header>
 
-      <form>
+      <form onSubmit={handleSubmit}>
         <h1>
           Cadastro do <br /> ponto de coleta
         </h1>
