@@ -10,10 +10,11 @@ import styles from "./styles";
 const Points = () => {
   const navigation = useNavigation();
 
+  /** navegação para a página anterior */
   function handleNavigateBack() {
     navigation.goBack();
   }
-
+  /** navegação para a página de Detalhes */
   function handleNavigateToDetail() {
     navigation.navigate("Detail");
   }
@@ -69,6 +70,24 @@ const Points = () => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{ paddingHorizontal: 32 }}
         >
+          <TouchableOpacity style={styles.item} onPress={() => {}}>
+            <SvgUri
+              width={42}
+              height={42}
+              uri="http://192.168.2.9:3333/uploads/lampadas.svg"
+            />
+            <Text style={styles.itemTitle}>Lâmpadas</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.item} onPress={() => {}}>
+            <SvgUri
+              width={42}
+              height={42}
+              uri="http://192.168.2.9:3333/uploads/lampadas.svg"
+            />
+            <Text style={styles.itemTitle}>Lâmpadas</Text>
+          </TouchableOpacity>
+
           <TouchableOpacity style={styles.item} onPress={() => {}}>
             <SvgUri
               width={42}
