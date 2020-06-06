@@ -6,6 +6,12 @@ import { RectButton } from "react-native-gesture-handler";
 
 import styles from "./styles";
 
+interface Item {
+  id: number;
+  title: string;
+  image_url: string;
+}
+
 const Detail = () => {
   const navigation = useNavigation();
 
