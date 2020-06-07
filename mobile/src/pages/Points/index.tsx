@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { View, TouchableOpacity, Text, ScrollView, Image } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  ScrollView,
+  Image,
+  Alert,
+} from "react-native";
 import { Feather as Icon } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import MapView, { Marker } from "react-native-maps";
 import { SvgUri } from "react-native-svg";
+import * as Location from "expo-location";
 
 import api from "../../services/api";
 
@@ -14,29 +22,88 @@ interface Item {
   title: string;
   image_url: string;
 }
+interface Points {
+  id: number;
+  image: string;
+  name: string;
+  latitude: number;
+  longitude: number;
+}
+interface Params {
+  uf: string;
+  city: string;
+}
 
 const Points = () => {
   const navigation = useNavigation();
+  const route = useRoute();
 
   const [items, setItems] = useState<Item[]>([]);
+  const [points, setPoints] = useState<Points[]>([]);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
 
+  const [initialPosition, setInitialPosition] = useState<[number, number]>([
+    0,
+    0,
+  ]);
+
+  const routeParams = route.params as Params;
+  /** busca os itens na API */
   useEffect(() => {
     api.get("items").then((response) => {
       const data = response.data;
       setItems(data);
     });
-  }, []);
+  }, [selectedItems]);
 
+  /** busca os pontos na API */
+  useEffect(() => {
+    api
+      .get("/points", {
+        params: {
+          city: routeParams.city,
+          uf: routeParams.uf,
+          items: selectedItems,
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        setPoints(data);
+
+        console.log(points);
+      });
+  }, []);
+  /** posição */
+  useEffect(() => {
+    async function loadPosition() {
+      const { granted } = await Location.requestPermissionsAsync();
+
+      if (granted) {
+        Alert.alert("Você não deu  as permissões necessárias!");
+        return;
+      } else {
+        Location.requestPermissionsAsync();
+      }
+
+      const location = await Location.getCurrentPositionAsync();
+
+      const { latitude, longitude } = location.coords;
+
+      console.log(granted, latitude, longitude);
+
+      setInitialPosition([latitude, longitude]);
+    }
+
+    loadPosition();
+  }, []);
   /** navegação para a página anterior */
   function handleNavigateBack() {
     navigation.goBack();
   }
   /** navegação para a página de Detalhes */
-  function handleNavigateToDetail() {
-    navigation.navigate("Detail");
+  function handleNavigateToDetail(id: number) {
+    navigation.navigate("Detail", { point_id: id });
   }
-
   /** controla os itens selecionados pelo usuário */
   function handleSelectItem(id: number) {
     const alreadySelected = selectedItems.findIndex((item) => item === id);
@@ -65,32 +132,35 @@ const Points = () => {
         <View style={styles.mapContainer}>
           <MapView
             style={styles.map}
+            loadingEnabled={initialPosition[0] === 0}
             initialRegion={{
-              latitude: -20.1159197,
-              longitude: -43.04863,
-              latitudeDelta: 0.014,
-              longitudeDelta: 0.014,
+              latitude: initialPosition[0],
+              longitude: initialPosition[1],
+              latitudeDelta: 1,
+              longitudeDelta: 1,
             }}
           >
-            <Marker
-              style={styles.mapMarker}
-              onPress={handleNavigateToDetail}
-              coordinate={{
-                latitude: -20.1159197,
-                longitude: -43.04863,
-              }}
-            >
-              <View style={styles.mapMarkerContainer}>
-                <Image
-                  style={styles.mapMarkerImage}
-                  source={{
-                    uri:
-                      "https://cms.qz.com/wp-content/uploads/2020/04/RTX77LBJ-e1587021603942.jpg?quality=75&strip=all&w=1600&h=900&crop=1",
-                  }}
-                />
-                <Text style={styles.mapMarkerTitle}>Mercado</Text>
-              </View>
-            </Marker>
+            {points.map((point) => (
+              <Marker
+                key={point.id}
+                style={styles.mapMarker}
+                onPress={() => handleNavigateToDetail(point.id)}
+                coordinate={{
+                  latitude: point.latitude,
+                  longitude: point.longitude,
+                }}
+              >
+                <View style={styles.mapMarkerContainer}>
+                  <Image
+                    style={styles.mapMarkerImage}
+                    source={{
+                      uri: point.image,
+                    }}
+                  />
+                  <Text style={styles.mapMarkerTitle}>{point.name}</Text>
+                </View>
+              </Marker>
+            ))}
           </MapView>
         </View>
       </View>
