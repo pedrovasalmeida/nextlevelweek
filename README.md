@@ -7,9 +7,9 @@ Desenvolvido acompanhando a Next Level Week #1.
 [Projeto: NLW #1 Booster](https://github.com/Rocketseat/nlw-01-booster#-projeto)
 
 - [Node.js](https://nodejs.org/en/)
-- [React](https://nodejs.org/en/)
-- [React Native](https://nodejs.org/en/)
-- [Expo](https://nodejs.org/en/)
+- [React](https://pt-br.reactjs.org/)
+- [React Native](https://reactnative.dev/)
+- [Expo](https://expo.io/)
 
 # Instalação
 
