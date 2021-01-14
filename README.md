@@ -20,8 +20,3 @@ Desenvolvido acompanhando a Next Level Week #1.
 - Em 'server', `yarn dev` inicia o servidor.
 - Em 'web', `yarn start` inicia o app web com React.
 - Em 'mobile', rode `expo` para instalar as dependências necessárias ao expo e, após, `yarn start` ou `expo start` para iniciar o app mobile com Expo. Para ter acesso ao app, baixe o expo no seu smartphone e escaneie o QRCode no bundle aberto.
-
-# To-Do List
-
-- [ ] Adicionar Theme Switcher;
-- [ ] Criar sistema de login e cadastro;
