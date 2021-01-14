@@ -1,9 +1,13 @@
+<h1 align="center">
+    <img alt="Ecoleta" title="Ecoleta" src="https://raw.githubusercontent.com/rocketseat-education/nlw-01-omnistack/master/.github/ecoleta.svg" width="220px" />
+</h1>
+
 <p align="center">
   <a href="#rocket-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-layout">Layout</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-como-contribuir">Como contribuir</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#memo-licença">Licença</a>
+  <a href="#instalação">Instalação</a>
 </p>
 
 <br>
@@ -38,13 +42,15 @@ Você pode visualizar o layout do projeto através [desse link](https://www.figm
 
 Depois que o merge da sua pull request for feito, você pode deletar a sua branch.
 
-# Instalação
+## Instalação
 
 • Faça o clone desse repositório `git clone`;
 - Nas pastas 'server', 'web' e 'mobile' o comando `yarn` instala as dependências. Portanto, faça isso para instalá-las.
 - Em 'server', `yarn dev` inicia o servidor.
 - Em 'web', `yarn start` inicia o app web com React.
 - Em 'mobile', rode `expo` para instalar as dependências necessárias ao expo e, após, `yarn start` ou `expo start` para iniciar o app mobile com Expo. Para ter acesso ao app, baixe o expo no seu smartphone e escaneie o QRCode no bundle aberto.
+
+Projeto desenvolvido utilizando, como base, a [Next Level Week #1](https://github.com/rocketseat-education/nlw-01-omnistack).
 
 ## :memo: Licença
 
