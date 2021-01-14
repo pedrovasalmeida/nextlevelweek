@@ -48,15 +48,6 @@ Você pode visualizar o layout do projeto através [desse link](https://www.figm
 
 Depois que o merge da sua pull request for feito, você pode deletar a sua branch.
 
-## :memo: Licença
-
-Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para mais detalhes.
-
----
-
-Feito com ♥ by Rocketseat :wave: [Participe da nossa comunidade!](https://discordapp.com/invite/gCRAFhc)
-
-
 # Instalação
 
 1. Faça o clone desse repositório `git clone`;
@@ -66,3 +57,9 @@ Feito com ♥ by Rocketseat :wave: [Participe da nossa comunidade!](https://disc
 - Em 'server', `yarn dev` inicia o servidor.
 - Em 'web', `yarn start` inicia o app web com React.
 - Em 'mobile', rode `expo` para instalar as dependências necessárias ao expo e, após, `yarn start` ou `expo start` para iniciar o app mobile com Expo. Para ter acesso ao app, baixe o expo no seu smartphone e escaneie o QRCode no bundle aberto.
+
+## :memo: Licença
+
+Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para mais detalhes.
+
+---
