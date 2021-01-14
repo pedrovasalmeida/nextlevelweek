@@ -44,9 +44,7 @@ Depois que o merge da sua pull request for feito, você pode deletar a sua branc
 
 # Instalação
 
-1. Faça o clone desse repositório `git clone`;
-2.
-
+• Faça o clone desse repositório `git clone`;
 - Nas pastas 'server', 'web' e 'mobile' o comando `yarn` instala as dependências. Portanto, faça isso para instalá-las.
 - Em 'server', `yarn dev` inicia o servidor.
 - Em 'web', `yarn start` inicia o app web com React.
